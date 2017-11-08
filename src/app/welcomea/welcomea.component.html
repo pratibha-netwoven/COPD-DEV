@@ -1,0 +1,36 @@
+<md-card class="mainContainer">
+  <md-card-header class="Header">
+    Welcome to the MS-SHARE Questionnaire
+  </md-card-header>
+  <md-card-content>
+    <p>Hello {{name}},</p>
+    <p>My office is excited to start using the MS-SHARE questionnaire. It will help me gather information about your health
+      and how you are doing. Please take some time to complete the questionnaire anytime before your next appointment on
+      [date].</p>
+    <p>How it works</p>
+    <ul>
+      <li> You can complete the questionnaire securely online. Your answers are confidential and will only be shared with Sutter
+        Health. </li>
+      <li>You can move at your own pace, and you can stop and save your answers at any time. Return and finish it when you are
+        ready.</li>
+      <li> You can skip questions that you don’t wish to answer. The more questions you answer, the more likely I’ll be able to
+        calculate your expanded disability status scale (EDSS) score. </li>
+      <li> At the end you can make a list of what you’d like to talk about at your next appointment.</li>
+    </ul>
+    <p>How it will help</p>
+    <ul>
+      <li>All of the information will be sent to me so I can review it before your next appointment.</li>
+      <li> It will allow us to display your list and your information during your appointment so we can talk about it and use
+        it to make decisions.</li>
+      <li> It will make it easier for us to track changes over time. </li>
+    </ul>
+    <p> you in advance for your time. </p>
+    <p>{{drName}}</p>
+   
+  </md-card-content>
+  <button (click)="next()">Next<i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+  <md-slider   step="10" min="10" max="130">
+  </md-slider>
+</md-card>
+<md-slider md-invert  step="10" min="10" max="130">
+</md-slider>

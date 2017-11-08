@@ -1,0 +1,27 @@
+md-radio-button {
+    display: block;
+    padding-top: 10px;
+}
+
+
+.mainContainer .subtable th {    background:#c6d9f1;
+    padding: 1em;
+    font-weight: normal;}
+
+.mainContainer .subtable td {border:solid 1px #ddd; text-align: center;}
+
+.mainContainer .subtable th.emptysec {background:none; border:solid 1px #ddd;}
+
+.mainContainer[_ngcontent-c3] .subtable[_ngcontent-c3] td[_ngcontent-c3]:first-child {
+    text-align: left;
+    padding: .7em 0 .8em 1.2em;
+    min-width: 8em;
+    /* text-align: center; */
+}
+.scale-item{
+    display: flex;
+    border-top:solid 1px #c6d9f1; padding-top: 10px;
+}
+.scale-item .mat-radio-button{
+   margin-right: 25px;
+}

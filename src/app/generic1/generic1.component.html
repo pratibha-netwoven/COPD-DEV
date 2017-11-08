@@ -1,0 +1,69 @@
+<md-card class="mainContainer">
+  <md-card-content>
+    <div *ngIf='pageObject.descr1'>
+      <b>{{pageObject.descr1}}</b>
+      <br/>
+    </div>
+    <div *ngIf='pageObject.descr2' style="margin-bottom:3em;">
+      <b>{{pageObject.descr2}}</b>
+    </div>
+  </md-card-content>
+  <p>{{pageObject.text}}</p>
+  <div *ngIf="pageObject.type=='options'">
+    <md-radio-button (change)="change($event)" [value]="option" name="group1" [checked]="option.checked" *ngFor="let option of pageObject.options">{{option.text}}</md-radio-button>
+  </div>
+  <div *ngIf="pageObject.type=='table'" class="subtable">
+    <table>
+      <tr>
+        <th class="emptysec"></th>
+        <th *ngFor="let option of pageObject.commonOptions || pageObject.sub[0].options">{{option.text}}</th>
+      </tr>
+      <tbody>
+        <tr *ngFor="let item of pageObject.sub ; let g = index">
+          <td>{{item.text}}</td>
+          <td *ngFor="let option of item.options ; let i = index">
+            <md-radio-button [name]="g" style="display:inline" (change)="change($event)" [value]="option" [checked]="option.checked"></md-radio-button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div *ngIf="pageObject.type=='header'" class="subtable">
+    <table>
+      <tr>
+        <td rowspan="2"></td>
+        <td style="background-color:#c6d9f1;" rowspan="2">{{pageObject.commonOptions[0].text}}</td>
+        <td style="background-color:#acc3df ; padding:.8em" [attr.colspan]="4">{{pageObject.header}}</td>
+      </tr>
+      <tr>
+        <th *ngFor="let option of pageObject.commonOptions.slice(1,5) || pageObject.sub[0].options">{{option.text}}</th>
+      </tr>
+      <tbody>
+        <tr *ngFor="let item of pageObject.sub ; let g = index">
+          <td>{{item.text}}</td>
+          <td *ngFor="let option of item.options ; let i = index">
+            <md-radio-button [name]="g" style="display:inline" (change)="change($event)" [value]="option" [checked]="option.checked"></md-radio-button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div *ngIf="pageObject.type=='section'" class="subtable">
+    <div *ngFor="let item of pageObject.sub; let g=index">
+      <p>
+        <b> {{item.text}}</b>
+      </p>
+      <div *ngFor="let option of pageObject.sub[g].options">
+        <md-radio-button [name]='g' style="display:inline" (change)="change($event)" [value]="option" [checked]="option.checked">{{option.text}}</md-radio-button>
+      </div>
+    </div>
+  </div>  
+  <div *ngIf="pageObject.type=='scale'">
+    <div class="scale-item" >
+      <md-radio-button (change)="change($event)" [value]="option" name="group1" [checked]="option.checked" *ngFor="let option of pageObject.scale">{{option.text}}</md-radio-button>
+    </div>
+    <div> </div>
+    <div> </div>
+  </div>
+  <app-navigate [selectedOption]="selectedOption" [pageName]="pageName" [pageObject]="pageObject"></app-navigate>
+</md-card>

@@ -1,0 +1,24 @@
+button {
+    margin-top: 10px;
+}
+.navigate-sec {   width: 25em;
+    margin: 0 auto;
+
+}
+
+.navigate-sec button {/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#96c0fa+8,6a9fe5+88 */
+background: #96c0fa; /* Old browsers */
+background: -moz-linear-gradient(top, #96c0fa 8%, #6a9fe5 88%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top, #96c0fa 8%,#6a9fe5 88%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom, #96c0fa 8%,#6a9fe5 88%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#96c0fa', endColorstr='#6a9fe5',GradientType=0 ); /* IE6-9 */
+    /*padding: .5em .5em .5em;*/
+    font-size: 1em;
+    margin-right: 1em; cursor:pointer;
+}
+
+.navigate-sec button i.fa-arrow-left{padding-right: .4em;
+    line-height: .2em; position: relative; bottom:.14em;}
+
+  .navigate-sec button i.fa-arrow-right{padding-left: .4em;
+    line-height: .2em; position: relative; bottom:.14em;}  
