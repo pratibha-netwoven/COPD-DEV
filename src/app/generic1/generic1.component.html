@@ -50,11 +50,11 @@
   </div>
   <div *ngIf="pageObject.type=='section'" class="subtable">
     <div *ngFor="let item of pageObject.sub; let g=index">
-      <p>
+      <p  *ngIf="pageObject.sub[g].hide != true" >
         <b> {{item.text}}</b>
       </p>
       <div *ngFor="let option of pageObject.sub[g].options">
-        <md-radio-button [name]='g' style="display:inline" (change)="change($event)" [value]="option" [checked]="option.checked">{{option.text}}</md-radio-button>
+        <md-radio-button [name]='g' *ngIf="pageObject.sub[g].hide != true"  style="display:inline" (change)="change($event)" [value]="option" [checked]="option.checked">{{option.text}}</md-radio-button>
       </div>
     </div>
   </div>  

@@ -22,7 +22,7 @@ export class NavigateComponent implements OnInit {
   next() {
     debugger;
     let jumpTo;
-    let sex = this.msShareService.get('queryParams').Gender || 'male';
+    let patienttype = this.msShareService.get('queryParams').Type || 'FP';
     if (this.pageObject.isMultiOptions && this.pageObject.ScreenPage == 3) {
       _.forEach(Screen, function (value) {
         navMap['multiOptions'] = _.concat(navMap['multiOptions'], value);
@@ -46,9 +46,19 @@ export class NavigateComponent implements OnInit {
               .location
               .forward();
             this.pointer++;
-          } else {
-            jumpTo = 'q21';
+          } 
+          else
+          {
+            let currentindex = transitArray.indexOf(this.pageName);
+            if((currentindex+1) <transitArray.length)
+            {
+              jumpTo = transitArray[currentindex+1];
+            }
+            
           }
+          // else {
+          //   jumpTo = 'q21';
+          // }
         }
       }
     } else if (this.selectedOption) {
@@ -56,16 +66,17 @@ export class NavigateComponent implements OnInit {
       jumpTo = isFunc
         ? this
           .selectedOption
-          .jumpTo(sex)
+          .jumpTo(patienttype)
         : this.selectedOption.jumpTo;
     } else if (this.pageObject.jumpTo) { //default one when no options are selected
       let isFunc = _.isFunction(this.pageObject.jumpTo);
       jumpTo = isFunc
         ? this
           .pageObject
-          .jumpTo(sex)
+          .jumpTo(patienttype)
         : this.pageObject.jumpTo;
     }
+   
 
     if (jumpTo) {
       this
@@ -76,9 +87,11 @@ export class NavigateComponent implements OnInit {
         .router
         .navigate(['generic1', jumpTo]);
     }
+    
   }
 
-  previous() {    
+  previous() { 
+    debugger;   
     let page = this.pageName;
     if (transitArray.includes(page)) {
       _.forEach(Screen, function (value) {

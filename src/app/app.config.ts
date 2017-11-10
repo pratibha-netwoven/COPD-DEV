@@ -3,28 +3,32 @@ export const welcomeMap = {
     one: 'welcomeb',
     all: 'welcomec'
 };
-export const transitArray = [
-    'q3.1',
-    'q3.2',
-    'q3.3',
-    'q3.4',
-    'q4',
-    'q5',
-    'q6',
-    'q7',
-    'q8',
-    'q9',
-    'q10',
-    'q11',
-    'q12',
-    'q13',
-    'q14',
-    'q15',
-    'q16',
-    'q17',
-    'q18',
-    'q19',
-    'q20'
+
+export class Reason{
+    reason:string;
+    code:string;
+    checked:boolean;
+    constructor(private reasonname: string,private codename:string,private ischecked:boolean)
+    {
+      this.reason = reasonname;
+      this.code = codename;
+      this.checked =ischecked;
+    }
+  }
+
+  export const ReasonsForVisit: Reason[] = [
+    new Reason("COPD", "COPD",false),
+    new Reason("Asthma", "AST",false),
+    new Reason("Dyspnea", "OT",false),
+    new Reason("Other", "OT",false)
+  ];
+
+export const subtransitArray:any[]=[
+
+];
+
+export const transitArray:any[] = [
+   
 ];
 // saby
 export const Screen={}
@@ -353,7 +357,6 @@ export const navMap = {
         section: true,
         reason:'AST',
         thresholdscore:25,
-        jumpTo: 'q3',
         sub:[
             {
                 text: `During the past 4 weeks, how often have you used your rescue inhaler or nebulizer medicine (such as albuterol)?`,
@@ -415,6 +418,7 @@ export const navMap = {
         descr1:`Dyspnea test (mMRC):`,        
         text: `Select the response that best describes, when you become breathless:`,
         jumpTo: 'q5',
+        reason:'OT',
         qno:'Q14',
         options: [
             {
@@ -444,6 +448,7 @@ export const navMap = {
         descr1:'The Quality of your Days',
         text: `Select the response that best describes the quality of your days:`,
         jumpTo: 'q6',
+        reason:'OT',
         qno:'Q15',
         options: [
             {
@@ -468,6 +473,7 @@ export const navMap = {
         descr1:`You Activity level`,
         text: `Select the response that best describes your activity level:`,
         jumpTo: 'q7',
+        reason:'OT',
         qno:'Q16',
         options: [
             {
@@ -485,6 +491,7 @@ export const navMap = {
     q7: {
         descr1:`Please answer the following questions about your health over the last 12 months:`,
         section:true,
+        reason:'OT',
         sub:[
          {
             text: `How many exacerbations have you had over the last 12 months?`,
@@ -608,6 +615,7 @@ export const navMap = {
 q8: {
     descr1:'Alcohol and Drug Use',
     section:true,
+    reason:'OT',
     sub:[
      {
         text: `Do you drink alcohol?`,
@@ -669,6 +677,8 @@ q8: {
 q9: {
     descr1:'Your Smoking History',
     section:true,
+    reason:'OT',
+    skipwithinsection:true,
     sub:[
      {
         text: `Do you live, or frequently visit with someone who smokes?`,
@@ -717,6 +727,7 @@ q9: {
             {
                 text: `No`,
                 jumpTo:'Q31',
+                hideqNo:'Q29,Q30a,Q30b,Q30c,Q30d,Q30e,Q30f',
                 checked: false
             }
         ]
@@ -724,6 +735,7 @@ q9: {
     {
         text: `If yes, what type of product do you use?`,
         qno:'Q29',
+        hide:true,
         options: [
             {
                 text: `Cigarettes`,
@@ -760,6 +772,7 @@ q9: {
     {
         text: `How often do you use/smoke Cigarettes per day?`,
         qno:'Q30a',
+        hide:true,
         jumpTo:'Q31',
         options: [
             {
@@ -783,6 +796,7 @@ q9: {
     {
         text: `How often do you use/smoke Chew per day?`,
         qno:'Q30b',
+        hide:true,
         jumpTo:'Q31',
         options: [
             {
@@ -802,6 +816,7 @@ q9: {
     {
         text: `How often do you use/smoke Pipe per day?`,
         qno:'Q30c',
+        hide:true,
         jumpTo:'Q31',
         options: [
             {
@@ -821,6 +836,7 @@ q9: {
     {
         text: `How often do you use/smoke Cigar per day?`,
         qno:'Q30d',
+        hide:true,
         jumpTo:'Q31',
         options: [
             {
@@ -840,6 +856,7 @@ q9: {
     {
         text: `How often do you use/smoke Electronic Cigarettes per day?`,
         qno:'Q30e',
+        hide:true,
         jumpTo:'Q31',
         options: [
             {
@@ -859,6 +876,7 @@ q9: {
     {
         text: `How often do you use/smoke Snuff per day?`,
         qno:'Q30f',
+        hide:true,
         jumpTo:'Q31',
         options: [
             {
@@ -890,10 +908,10 @@ q9: {
             {
                 text: `11 to 15`,
                 checked: false
-            },
+            }
             , 
             {
-                text: `16 or more`,
+                text: `16`,
                 checked: false
             }
         ]
@@ -901,6 +919,9 @@ q9: {
     {
         text: `Please select the date or select number of years you have quit using tobacco products? (Skip question if you have not quit using tobacco products)`,
         qno:'Q32',
+        jumpTo: (patienttype) => patienttype == 'FP'
+        ? 'q13'
+        : 'q10',
         options: [
             {
                 text: `Month and year selector`,
@@ -919,7 +940,9 @@ q10:
 {
     descr1:'Your social history',
     section:true,
-    Audience:'NewPatient',
+    skipwithinsection:true,
+    reason:'OT',
+    Audience:'NP',
     sub:[
         {
             text: `Did you migrate to the U.S.A?`,
@@ -994,7 +1017,8 @@ q10:
 },
 q11:{
     descr1:`Health Conditions`,   
-    Audience:'NewPatient',     
+    Audience:'NP',  
+    reason:'OT',   
     text: `Tell us about your pulmonary health conditions. Select all that apply.`,
     qno:'Q36',
     options: [
@@ -1048,7 +1072,8 @@ q11:{
 },
 q12:{
     descr1:`Wheezing Triggers`,    
-    Audience:'NewPatient',    
+    Audience:'NP',
+    reason:'OT',    
     text: `Tell us about any triggers that lead to wheezing.`,
     qno:'Q37',
     options: [
@@ -1093,9 +1118,11 @@ q12:{
 },
 q13:{
     descr1:`Medications and Durable Medical Equipment`,  
-    Audience:'NewPatient',       
+    Audience:'NP,FP',       
     text: `Difficulty with Medications. `,
     qno:'Q38',
+    reason:'OT',
+    jumpTo:'q14',
     options: [
         {
             text: `I have trouble remembering to take some of my medications`,
@@ -1114,7 +1141,8 @@ q13:{
 },
 q14:{
     descr1:`Medications and Durable Medical Equipment`,  
-    Audience:'NewPatient',       
+    Audience:'NP,FP',   
+    reason:'OT',    
     text: `I am using or use when needed`,
     qno:'Q39',
     options: [
@@ -1135,6 +1163,136 @@ q14:{
             checked: false
         }, {
             text: `Rescue Inhaler`,
+            checked: false
+        }
+    ]
+},
+q15:{
+    descr1:`History of Symptoms`,  
+    Audience:'NP',     
+    reason:'OT',
+    text: `Tell us about any symptoms you are currently having`,
+    qno:'Q40',
+    options: [
+        {
+            text: `Shortness of Breath`,
+            checked: false
+        }, {
+            text: `Coughing up Blood`,
+            checked: false
+        }, {
+            text: `Fever/chills`,
+            checked: false
+        }, {
+            text: `Post nasal drip`,
+            checked: false
+        }, {
+            text: `Allergies/Hay fever`,
+            checked: false
+        }, {
+            text: `Daytime sleepiness`,
+            checked: false
+        }, {
+            text: `Dry cough`,
+            checked: false
+        }, {
+            text: `Chest paints/tightness`,
+            checked: false
+        }, {
+            text: `Night sweats`,
+            checked: false
+        }, {
+            text: `Heart burn/acid reflux`,
+            checked: false
+        }, {
+            text: `Gasping arousals`,
+            checked: false
+        }, {
+            text: `Coughing up phlegm`,
+            checked: false
+        }, {
+            text: `Wheezing`,
+            checked: false
+        }, {
+            text: `Weight Loss`,
+            checked: false
+        }, {
+            text: `Chocking on flood/liquid`,
+            checked: false
+        }, {
+            text: `Stop breathing in my sleep`,
+            checked: false
+        }
+    ]
+},
+q16:{
+    descr1:`Surgical History`,  
+    Audience:'NP',  
+    reason:'OT',   
+    text: `Have you ever had surgery on any of the following`,
+    qno:'Q41',
+    options: [
+        {
+            text: `Head; including Eye, Nose, Mouth, or Ear`,
+            checked: false
+        }, {
+            text: `Neck, including Throat`,
+            checked: false
+        }, {
+            text: `Shoulder, Arm, Wrist, or Hand`,
+            checked: false
+        }, {
+            text: `Chest, including Breast, Heart, or Lungs`,
+            checked: false
+        }, {
+            text: `Stomach, including Intestines, Liver, or Kidneys`,
+            checked: false
+        }, {
+            text: `Groin area, including Bladder, Prostate, or Reproductive system`,
+            checked: false
+        },
+        {
+            text: `Hip, Leg, Knee, Ankle, or Foot`,
+            checked: false
+        },
+        {
+            text: `Other`,
+            checked: false
+        }
+    ]
+},
+q17:{
+    descr1:`Surgical History`,  
+    Audience:'NP',   
+    reason:'OT',  
+    text: `Have you ever had surgery on any of the following`,
+    qno:'Q41',
+    options: [
+        {
+            text: `Head; including Eye, Nose, Mouth, or Ear`,
+            checked: false
+        }, {
+            text: `Neck, including Throat`,
+            checked: false
+        }, {
+            text: `Shoulder, Arm, Wrist, or Hand`,
+            checked: false
+        }, {
+            text: `Chest, including Breast, Heart, or Lungs`,
+            checked: false
+        }, {
+            text: `Stomach, including Intestines, Liver, or Kidneys`,
+            checked: false
+        }, {
+            text: `Groin area, including Bladder, Prostate, or Reproductive system`,
+            checked: false
+        },
+        {
+            text: `Hip, Leg, Knee, Ankle, or Foot`,
+            checked: false
+        },
+        {
+            text: `Other`,
             checked: false
         }
     ]

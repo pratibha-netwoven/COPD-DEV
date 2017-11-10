@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
-import {navMap} from '../app.config';
+import {navMap, welcomeMap} from '../app.config';
 @Component({
   selector: 'app-welcomea',
   templateUrl: './welcomea.component.html',
@@ -18,6 +18,7 @@ export class WelcomeaComponent implements OnInit {
   }
 
   next(){
-    this.router.navigate(['generic1','q1a']);
+   // this.router.navigate(['generic1','q1']);
+   this.router.navigate([welcomeMap['one']]);
   }
 }

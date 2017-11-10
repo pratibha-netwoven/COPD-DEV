@@ -20,6 +20,7 @@ export class MsShareService {
 
   constructor(private http : Http, private activatedRoute : ActivatedRoute, private router : Router) {
     //this.subject = new Subject();
+  
     this.set('navMap', navMap);
     let SearchParams = new URLSearchParams(top.location.search);
     let rawParams = SearchParams.rawParams;
@@ -32,10 +33,12 @@ export class MsShareService {
       (elementArray.length > 0) && (prevValue[elementArray[0]] = elementArray[1]);
       return (prevValue);
     }, {});
+
     this.set('queryParams', urlObject);
     let welcome = this.get('queryParams')['type'] || 'none';
     router.navigate([welcomeMap[welcome]]);
   }
+
 
   get(id) {
     return (this.global[id]);

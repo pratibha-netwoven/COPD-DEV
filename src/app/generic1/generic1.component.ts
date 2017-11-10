@@ -43,6 +43,7 @@ export class Generic1Component implements OnInit {
       });
   }
   showPage() {
+    alert('showpage');
     debugger;
     let options = navMap[this.pageName].options;
     let scale = navMap[this.pageName].scale;
@@ -65,6 +66,9 @@ export class Generic1Component implements OnInit {
 
   change(event) {
     debugger;
+   
+
+
     let options: any[] = this.pageObject.options;
     options && options.forEach(x => x.checked = false);
     let scale: any[] = this.pageObject.scale;
@@ -81,6 +85,47 @@ export class Generic1Component implements OnInit {
     this.selectedOption.checked = true;
     this.selectedOption.pageName = this.pageName;
     this.pageObject.isMultiOptions && this.prepareMultiOptions();//isMultiOptions true means q3    
+
+
+     //pratibha
+     if(this.pageObject.skipwithinsection == true && event.value.jumpTo)
+     {
+      //  //hide and show the radiobuttons
+      //  let options = navMap[this.pageName].options;
+      //  let scale = navMap[this.pageName].scale;
+      //  let sub = this.pageObject.sub;
+      //  sub && sub.forEach(x => {
+      //  if(x.qno == event.value.jumpTo)
+      //  {
+      //    x.hide == false;
+      //    alert('got e;lement');
+      //  }
+      // });  
+
+      if(event.value.hideqNo)
+      {
+        //TO DO: Pratibha 10Nov2017
+        //spli the string 
+        //and set hide = true for all the qno.
+        //also set checked = false for all those qno
+      }
+      navMap[this.pageName].sub.forEach(x => {
+          if(x.hide== false)
+          {
+            x.hide = true;
+          }
+        });
+      navMap[this.pageName].sub.forEach(x => {
+         if(x.qno == event.value.jumpTo)
+         {
+           x.hide = false;
+         }
+         });
+      
+        this.showPage();
+     }
+ 
+     //end
   }
 
   prepareMultiOptions() {

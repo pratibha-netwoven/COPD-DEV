@@ -5,6 +5,7 @@ import {HttpModule} from '@angular/http';
 import {MsShareService} from './ms-share.service';
 import {AppComponent} from './app.component';
 import {ROUTES} from './app.routes';
+import { FormsModule } from '@angular/forms';
 import {
   // MdButtonModule,
   MdCheckboxModule,
@@ -32,7 +33,7 @@ import { NavigateComponent } from './navigate/navigate.component';
     NavigateComponent
   ],
   imports: [
-    BrowserModule, RouterModule.forRoot(ROUTES, {useHash: true}),HttpModule,
+    BrowserModule, RouterModule.forRoot(ROUTES, {useHash: true}),HttpModule,FormsModule,
     // MdButtonModule,
     MdGridListModule,
     MdCheckboxModule,
