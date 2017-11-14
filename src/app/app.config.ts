@@ -1,26 +1,27 @@
 export const welcomeMap = {
-    none: 'welcomea',
-    one: 'welcomeb',
-    all: 'welcomec'
+    none: 'welcomec', 
+    NP: 'welcomea', //new patient
+    one: 'welcomeb', //diseases checkbox
+    FP: 'welcomec'
 };
 
-export class Reason{
-    reason:string;
-    code:string;
-    checked:boolean;
-    constructor(private reasonname: string,private codename:string,private ischecked:boolean)
-    {
-      this.reason = reasonname;
-      this.code = codename;
-      this.checked =ischecked;
-    }
-  }
+// export class Reason{
+//     reason:string;
+//     code:string;
+//     checked:boolean;
+//     constructor(private reasonname: string,private codename:string,private ischecked:boolean)
+//     {
+//       this.reason = reasonname;
+//       this.code = codename;
+//       this.checked =ischecked;
+//     }
+//   }
 
-  export const ReasonsForVisit: Reason[] = [
-    new Reason("COPD", "COPD",false),
-    new Reason("Asthma", "AST",false),
-    new Reason("Dyspnea", "OT",false),
-    new Reason("Other", "OT",false)
+  export const ReasonsForVisit: {reason:string,code:string,checked:boolean}[] = [
+    {reason:"COPD",code: "COPD",checked:false},
+    {reason:"Asthma", code:"AST",checked:false},
+   {reason:"Dyspnea", code:"OT",checked:false},
+   {reason:"Other", code:"OT",checked:false},
   ];
 
 export const subtransitArray:any[]=[
@@ -38,15 +39,17 @@ export const navMap = {
         section: true,
         reason:'COPD',
         thresholdscore:40,
+      
         sub: [
             {
                 text: `How often do you cough?`,
                 qno:'Q1',
+                scorecontrol:true,
                 options: [
                     {
                         text: `Never`,
                         score: 1,
-                        checked: false
+                        checked: true
                     }, {
                         text: ``,
                         score: 2,
@@ -69,6 +72,7 @@ export const navMap = {
             {
                 text: `How much phlegm do you have in your chest?`,
                 qno:'Q2',
+                scorecontrol:true,
                 options: [
                     {
                         text: `No Phlegm`,
@@ -96,6 +100,7 @@ export const navMap = {
             {
                 text: `How tight does your chest feel?`,
                 qno:'Q3',
+                scorecontrol:true,
                 options: [
                     {
                         text: `Not at All`,
@@ -123,6 +128,7 @@ export const navMap = {
             {
                 text: `How breathles do you get walking uphill or walking up a flight of stairs`,
                 qno:'Q4',
+                scorecontrol:true,
                 options: [
                     {
                         text: `Not Breathless`,
@@ -150,6 +156,7 @@ export const navMap = {
             {
                 text: `Are you limited to doing activities at home?`,
                 qno:'Q5',
+                scorecontrol:true,
                 options: [
                     {
                         text: `Not at All`,
@@ -177,6 +184,7 @@ export const navMap = {
             {
                 text: `Are you confident leaving your home despite your lung condition?`,
                 qno:'Q6',
+                scorecontrol:true,
                 options: [
                     {
                         text: `Not Confident`,
@@ -204,6 +212,7 @@ export const navMap = {
             {
                 text: `How soundly do you sleep because of you lung condition`,
                 qno:'Q7',
+                scorecontrol:true,
                 options: [
                     {
                         text: `Very Soundly`,
@@ -231,6 +240,7 @@ export const navMap = {
             {
                 text: `How would you rate your energy level`,
                 qno:'Q8',
+                scorecontrol:true,
                 options: [
                     {
                         text: `Lots of Energy`,
@@ -740,31 +750,37 @@ q9: {
             {
                 text: `Cigarettes`,
                 jumpTo:'Q30a',
+                hideqNo:'Q30b,Q30c,Q30d,Q30e,Q30f',
                 checked: false
             }, 
             {
                 text: `Chew`,
-                jumpTo:'Q30b',
+                jumpTo:'Q30b', 
+                hideqNo:'Q30a,Q30b,Q30c,Q30d,Q30e,Q30f',
                 checked: false
             }, 
             {
                 text: `Pipe`,
                 jumpTo:'Q30c',
+                hideqNo:'Q30a,Q30b,Q30d,Q30e,Q30f',
                 checked: false
             }, 
             {
                 text: `Cigar`,
                 jumpTo:'Q30d',
+                hideqNo:'Q30a,Q30b,Q30c,Q30e,Q30f',
                 checked: false
             }, 
             {
                 text: `Electronic Cigarettes`,
                 jumpTo:'Q30e',
+                hideqNo:'Q30a,Q30b,Q30c,Q30d,Q30f',
                 checked: false
             }, 
             {
                 text: `Snuff`,
                 jumpTo:'Q30f',
+                hideqNo:'Q30a,Q30b,Q30c,Q30d,Q30e',
                 checked: false
             }
         ]
@@ -950,12 +966,13 @@ q10:
             options: [
                 {
                     text: `Yes`,
-                    jumpTo:'Q35',
+                    jumpTo:'Q34',
                     checked: false
                 }, 
                 {
                     text: `No`,
-                    jumpTo:'Q33',
+                    jumpTo:'Q35',
+                    hideqNo:'Q34',
                     checked: false
                 }
             ]
@@ -963,6 +980,7 @@ q10:
         {
             text: `If yes, from which continent?`,
             qno:'Q34',
+            hide:true,
             options: [
                 {
                     text: `Africa`,
@@ -1296,5 +1314,209 @@ q17:{
             checked: false
         }
     ]
-}
+},
+q18:{
+    descr1:`Health History`,  
+    Audience:'NP',   
+    reason:'OT',  
+    text: `Have you ever been diagnosed with any of the following`,
+    qno:'Q42',
+    options: [
+        {
+            text: `Hypertension`,
+            checked: false
+        }, {
+            text: `Heart Attack`,
+            checked: false
+        }, {
+            text: `HIV/AIDS`,
+            checked: false
+        }, {
+            text: `Arrhythmia`,
+            checked: false
+        }, {
+            text: `Diabetes`,
+            checked: false
+        }, {
+            text: `Stroke`,
+            checked: false
+        },
+        {
+            text: `Kidney Failure/Dialysis`,
+            checked: false
+        },
+        {
+            text: `Cancer`,
+            checked: false
+        },
+        {
+            text: `Coronary Artery Disease`,
+            checked: false
+        },
+        {
+            text: `Liver Disease`,
+            checked: false
+        },
+        {
+            text: `Congestive Heart Failure`,
+            checked: false
+        },
+        {
+            text: `Other`,
+            checked: false
+        },
+    ]
+},
+q19:
+{
+    descr1:'Your Home',
+    section:true,
+    skipwithinsection:true,
+    reason:'OT',
+    Audience:'NP',
+    sub:[
+        {
+            text: `Do you have carpeting in your home?`,
+            qno:'Q43',
+            options: [
+                {
+                    text: `Yes`,
+                    jumpTo:'Q44',
+                    checked: false
+                }, 
+                {
+                    text: `No`,
+                    jumpTo:'Q45',
+                    hideqNo:'Q44',
+                    checked: false
+                }
+            ]
+        },
+        {
+            text: `If yes, how often is it steam cleaned?`,
+            qno:'Q44',
+            hide:true,
+            options: [
+                {
+                    text: `Yearly`,
+                    checked: false
+                }, 
+                {
+                    text: `Seldom`,
+                    checked: false
+                }, 
+                {
+                    text: `Never`,
+                    checked: false
+                }
+               
+            ]
+        },
+        {
+            text: `How would you describe your home location?`,
+            qno:'Q45',
+            options: [
+                {
+                    text: `Urban`,
+                    checked: false
+                }, 
+                {
+                    text: `Suburban`,
+                    checked: false
+                }, 
+                {
+                    text: `Countryside`,
+                    checked: false
+                }
+                
+            ]
+        },
+        {
+            text: `How many years have you lived at your current residence?`,
+            qno:'Q45',
+            options: [
+                {
+                    text: `5 or less`,
+                    checked: false
+                }, 
+                {
+                    text: `6 - 10`,
+                    checked: false
+                }, 
+                {
+                    text: `11 - 15`,
+                    checked: false
+                },
+                {
+                    text:`16 or more`,
+                    checked: false
+                }
+                
+            ]
+        },
+        {
+            text: `How old is your home in years?`,
+            qno:'Q45',
+            options: [
+                {
+                    text: `5 or less`,
+                    checked: false
+                }, 
+                {
+                    text: `6 - 10`,
+                    checked: false
+                }, 
+                {
+                    text: `11 - 15`,
+                    checked: false
+                },
+                {
+                    text:`16 or more`,
+                    checked: false
+                }
+                
+            ]
+        },
+        {
+            text: `Do you have any of the following pets`,
+            qno:'Q45',
+            options: [
+                {
+                    text: `Dog`,
+                    checked: false
+                }, 
+                {
+                    text: `Cat`,
+                    checked: false
+                }, 
+                {
+                    text: `Bird`,
+                    checked: false
+                },
+                {
+                    text:`Horse`,
+                    checked: false
+                },
+                {
+                    text:`Reptiles`,
+                    checked: false
+                },
+                {
+                    text:`Fish`,
+                    checked: false
+                },
+                {
+                    text:`Mouse`,
+                    checked: false
+                },
+                {
+                    text:`No Pets`,
+                    checked: false
+                }
+                
+            ]
+        }
+    ]
+},
+
 };

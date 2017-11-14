@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
-import {navMap, welcomeMap} from '../app.config';
+import {navMap, welcomeMap} from  '../app.config';
 @Component({
   selector: 'app-welcomea',
   templateUrl: './welcomea.component.html',

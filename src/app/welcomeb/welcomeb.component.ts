@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { navMap, Reason, welcomeMap,transitArray,ReasonsForVisit } from '../app.config';
+import { navMap, welcomeMap,transitArray,ReasonsForVisit } from '../app.config';
 import * as _ from "lodash";
+import { MsShareService } from '../ms-share.service';
 
 @Component({
   selector: 'app-welcomeb',
   templateUrl: './welcomeb.component.html',
   styleUrls: ['./welcomeb.component.css']
+  
 })
 
 export class WelcomebComponent implements OnInit {
@@ -14,14 +16,17 @@ export class WelcomebComponent implements OnInit {
   pageObject: any;
   selectedOption: any;
   reasoncodes: string[] = [];
-  Reasons: Reason[] = ReasonsForVisit;
+  Reasons = ReasonsForVisit;
+  scorevaluesubscribed:string;
   //   new Reason("COPD", "COPD"),
   //   new Reason("Asthma", "AST"),
   //   new Reason("Dyspnea", "OT"),
   //   new Reason("Other", "OT")
   // ];
-  constructor(private router: Router,private activatedRoute: ActivatedRoute) {
-    debugger;
+  constructor(private router: Router,
+              private activatedRoute: ActivatedRoute,
+              private msShareService: MsShareService) {
+   
     // activatedRoute
     // .params
     // .subscribe(param => {
@@ -34,6 +39,20 @@ export class WelcomebComponent implements OnInit {
 
   ngOnInit() {
    
+  // this.msShareService.filterOn("newscore").subscribe(
+  //    (x :any)=>{
+  //     this.scorevaluesubscribed = x.data.toString();
+  //    },
+  //    (error:any)=>{
+  //      console.log(error);
+  //    }
+  // );
+
+  // this.msShareService.newscore.subscribe((x:number)=>{
+  //   this.scorevaluesubscribed = x.toString();
+  // }
+
+  // );
   }
 
 
@@ -47,56 +66,43 @@ export class WelcomebComponent implements OnInit {
       transitArray.splice(0,transitArray.length);
     }
   
-
-    // var checkedcodes = _.filter(this.ReasonsForVisit, function (o) { return o.checked; });
-    // _.forEach(checkedcodes, (value, key) =>{
-
-    //  this.reasoncodes.push(value);
-      //var isExist = _.find(this.reasoncodes, function(o) { return o == value.code; });
-      // if(this.reasoncodes === null || this.reasoncodes === undefined)
-      // {
-      //   this.reasoncodes.push(value);
-      // }
-      // else if(!this.reasoncodes.includes(value.code))
-      //{
-      //  this.reasoncodes.push(value);
-     // }
-   // });
-
-            // _
-            // .keys(navMap)
-            // .forEach(function (key) {
-            //   let q = navMap[key];
-            // });
                   
 
-                this.Reasons
-                    .filter((o)=>{return o.checked})
-                    .forEach((element) => {
-                      var isexist = this.reasoncodes.find((o)=>{return o == element.code});
-                      if(!isexist)
-                          this.reasoncodes.push(element.code);
-                    });
+  this.Reasons
+      .filter((o)=>{return o.checked})
+      .forEach((element) => {
+        var isexist = this.reasoncodes.find((o)=>{return o == element.code});
+        if(!isexist)
+            this.reasoncodes.push(element.code);
+      });
 
-                    //purposely adding Other category in case they choose only COPD or AST
-                    // not adding at the start as the order will change
-                    var isexist = this.reasoncodes.find((o)=>{return o == 'OT'});
-                    if(!isexist)
-                        this.reasoncodes.push('OT');
+      //purposely adding Other category in case they choose only COPD or AST
+      // not adding at the start as the order will change
+      if(this.reasoncodes.length >0)
+      {
+        var isexist = this.reasoncodes.find((o)=>{return o == 'OT'});
+        if(!isexist)
+            this.reasoncodes.push('OT');
 
-                    this.reasoncodes.forEach(element =>{
-                      _
-                      .keys(navMap)
-                      .forEach(function (key) {
-                        let q = navMap[key];
-                        if(q.reason === element)
-                        {
-                          transitArray.push(key);  // pushing all the questions for navigation
-                        }
-                      });
-                    });
-                          
-    this.router.navigate(['generic1',transitArray[0]]);
+      }
+    
+      this.reasoncodes.forEach(element =>{
+        _
+        .keys(navMap)
+        .forEach(function (key) {
+          let q = navMap[key];
+          if(q.reason === element)
+          {
+            transitArray.push(key);  // pushing all the questions for navigation
+          }
+        });
+      });
+            
+      if(this.reasoncodes.length >0)
+      {
+        this.router.navigate(['generic1',transitArray[0]]);
+      }
+   
   }
 
   previous() {

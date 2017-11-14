@@ -53,9 +53,33 @@
       <p  *ngIf="pageObject.sub[g].hide != true" >
         <b> {{item.text}}</b>
       </p>
-      <div *ngFor="let option of pageObject.sub[g].options">
-        <md-radio-button [name]='g' *ngIf="pageObject.sub[g].hide != true"  style="display:inline" (change)="change($event)" [value]="option" [checked]="option.checked">{{option.text}}</md-radio-button>
-      </div>
+      <ng-container *ngIf="pageObject.sub[g].scorecontrol != true">
+      <!-- <div *ngFor="let option of pageObject.sub[g].options"> -->
+          <ng-container *ngFor="let option of pageObject.sub[g].options">
+        <md-radio-button  [name]='g'
+         *ngIf="pageObject.sub[g].hide != true"  
+         style="display:inline"
+          (change)="change($event)" 
+          [value]="option" 
+          [checked]="option.checked">{{option.text}}</md-radio-button>
+          </ng-container>
+      <!-- </div> -->
+    </ng-container>
+    <ng-container *ngIf="pageObject.sub[g].scorecontrol == true">
+        <!-- <div *ngFor="let option of pageObject.sub[g].options">
+            <label>Name:</label>
+            <input [value]="option.score" *ngIf="option.checked == true"  type="text" [(ngModel)]="name">
+            </div> -->
+        <!-- <app-scorebuttons [navMapPage]="pageName" 
+                          [subqno]="pageObject.sub[g].qno"
+                          [StartScoreDesc]="pageObject.sub[g].options[0].text" 
+                          [EndscoreDesc]= "pageObject.sub[g].options[4].text"
+                          [selectedscorestring]="getselectedscore(pageObject.sub[g])"></app-scorebuttons> -->
+        <app-scorebuttons [navMapPage]="pageName" 
+                          [subqno]="pageObject.sub[g].qno"
+                          [options]="pageObject.sub[g].options"></app-scorebuttons>
+    </ng-container>
+  
     </div>
   </div>  
   <div *ngIf="pageObject.type=='scale'">

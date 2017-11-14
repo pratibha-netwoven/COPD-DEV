@@ -9,6 +9,9 @@ import {welcomeMap, navMap} from './app.config';
 
 @Injectable()
 export class MsShareService {
+  //Pratibha
+  //newscore = new Subject<number>();
+  //end
   //used to maintain a global object
   global : any = {};
   subject : Subject < any >;
@@ -19,14 +22,14 @@ export class MsShareService {
   };
 
   constructor(private http : Http, private activatedRoute : ActivatedRoute, private router : Router) {
-    //this.subject = new Subject();
+    this.subject = new Subject();
   
     this.set('navMap', navMap);
     let SearchParams = new URLSearchParams(top.location.search);
     let rawParams = SearchParams.rawParams;
 
     // (() => { values for answered are none, one, all let sampleUrl =
-    // `http://localhost:4300?answered=none&Gender=female`; let sampleUrl = someParam;
+    // `http://localhost:4200?type=FP`; let sampleUrl = someParam;
     let urlArray = rawParams.slice(rawParams.indexOf('?') + 1).split('&');
     let urlObject = urlArray.reduce((prevValue, x, i) => {
       let elementArray = x && x.split('=');

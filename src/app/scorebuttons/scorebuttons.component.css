@@ -1,0 +1,16 @@
+.butt {
+    border: 2px outset grey;
+    background-color:whitesmoke;
+    height:25px;
+    width:25px;
+    cursor:pointer;
+ }
+ 
+ .butt:hover {
+    background-color: rgba(0,0,0,.87);
+    color:white;
+ }
+ .selected {
+    background-color: rgba(0,0,0,.87);
+    color:white;
+ }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { navMap,Screen } from '../app.config';
 import * as _ from "lodash";
+import { MsShareService } from '../ms-share.service';
 
 @Component({ selector: 'app-generic1', templateUrl: './generic1.component.html', styleUrls: ['./generic1.component.css'] })
 
@@ -11,7 +12,9 @@ export class Generic1Component implements OnInit {
   selectedOption: any;
 
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute) {
+  constructor(private router: Router, 
+              private activatedRoute: ActivatedRoute, 
+              private msShareService:MsShareService) {
     debugger;
     this.tweakNavMap();
     activatedRoute
@@ -43,8 +46,6 @@ export class Generic1Component implements OnInit {
       });
   }
   showPage() {
-    alert('showpage');
-    debugger;
     let options = navMap[this.pageName].options;
     let scale = navMap[this.pageName].scale;
     let sub = this.pageObject.sub;
@@ -62,8 +63,68 @@ export class Generic1Component implements OnInit {
     }
   }
 
-  ngOnInit() {debugger; }
+  ngOnInit() {
+    this.msShareService.filterOn("newscore").subscribe(
+      (x :any)=>{
+        debugger;
+        let sub = this.pageObject.sub.find(y=>y.qno ==x.data.subqno);
+        //empty all the checked property to false.
+        sub.options.forEach(element => {
+          element.checked = false;
+        });
+        let option = sub.options.find(y=>y.score==x.data.selectedscore);
+        option.checked = true;
+      },
+      (error:any)=>{
+        console.log(error);
+      }
+   );
 
+//    this.msShareService.filterOn("selectedscoreQ1").subscribe(
+//     (x :any)=>{
+//     //  this.scorevaluesubscribed = x.data.toString();
+//     debugger;
+//     let selectedscoretoemit:string;
+//    // let options = navMap[x.navMapPage].options;
+//     let sub = this.pageObject.sub.find(y=>y.qno ==x.data.subqno);
+//     selectedscoretoemit = sub.options.find(x=>x.checked).score;
+    
+//     if(selectedscoretoemit != undefined)
+//     {
+//       this.msShareService.emit("populatescoreQ1",selectedscoretoemit);
+//     }
+  
+//     },
+//     (error:any)=>{
+//       console.log(error);
+//     }
+//  );
+//  this.msShareService.filterOn("selectedscoreQ2").subscribe(
+//   (x :any)=>{
+//   //  this.scorevaluesubscribed = x.data.toString();
+//   debugger;
+//   let selectedscoretoemit:string;
+//  // let options = navMap[x.navMapPage].options;
+//   let sub = this.pageObject.sub.find(y=>y.qno ==x.data.subqno);
+//   selectedscoretoemit = sub.options.find(x=>x.checked) == undefined?0:sub.options.find(x=>x.checked).score;
+//   this.msShareService.emit("populatescoreQ2",selectedscoretoemit);
+  
+
+//   },
+//   (error:any)=>{
+//     console.log(error);
+//   }
+// );
+   }
+
+   getselectedscore(sub:any):void
+   {
+     debugger;
+     if(sub != null || sub != undefined)
+     {
+      return sub.options.find(x => x.checked).score;
+     }
+   }
   change(event) {
     debugger;
    
@@ -105,16 +166,25 @@ export class Generic1Component implements OnInit {
       if(event.value.hideqNo)
       {
         //TO DO: Pratibha 10Nov2017
-        //spli the string 
-        //and set hide = true for all the qno.
-        //also set checked = false for all those qno
-      }
-      navMap[this.pageName].sub.forEach(x => {
-          if(x.hide== false)
-          {
-            x.hide = true;
-          }
+         //split the string 
+        let hideqNos = event.value.hideqNo;
+        var hideqNoarr = hideqNos.split(",");
+        hideqNoarr.forEach(x=>{
+
+          navMap[this.pageName].sub.forEach(y => {
+            if(y.qno == x)
+            {
+              y.hide = true;
+             // y.checked = false;
+             y.options.forEach(element => {
+               element.checked = false;
+             });
+            }
+          });
+         
         });
+      }
+      //show the jumpto question
       navMap[this.pageName].sub.forEach(x => {
          if(x.qno == event.value.jumpTo)
          {

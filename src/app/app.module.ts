@@ -8,11 +8,14 @@ import {ROUTES} from './app.routes';
 import { FormsModule } from '@angular/forms';
 import {
   // MdButtonModule,
+  
   MdCheckboxModule,
   MdRadioModule,
   MdCardModule,
   MdListModule,
-  MdGridListModule,MatCardModule
+  MdGridListModule,MatCardModule,
+  MdDatepickerModule,
+  MdNativeDateModule
 } from '@angular/material';
 import {AngularMaterialModule} from './angular-material/angular-material.module';
 import { WelcomeaComponent } from './welcomea/welcomea.component';
@@ -20,6 +23,7 @@ import { WelcomebComponent } from './welcomeb/welcomeb.component';
 import { WelcomecComponent } from './welcomec/welcomec.component';
 import { Generic1Component } from './generic1/generic1.component';
 import { NavigateComponent } from './navigate/navigate.component';
+import { ScorebuttonsComponent } from './scorebuttons/scorebuttons.component';
 // import { Generic1Component } from './generic1/generic1.component';
 
 @NgModule({
@@ -30,20 +34,24 @@ import { NavigateComponent } from './navigate/navigate.component';
     WelcomecComponent,
     // GenericaComponent,
     Generic1Component,
-    NavigateComponent
+    NavigateComponent,
+    ScorebuttonsComponent
   ],
   imports: [
     BrowserModule, RouterModule.forRoot(ROUTES, {useHash: true}),HttpModule,FormsModule,
     // MdButtonModule,
+    MdDatepickerModule,
     MdGridListModule,
     MdCheckboxModule,
     MdRadioModule,
     MdCardModule,
     MdListModule,
     AngularMaterialModule,
-    MatCardModule
+    MatCardModule,
+    MdNativeDateModule
+   
   ],
-  providers: [MsShareService],
+  providers: [MsShareService,MdNativeDateModule],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

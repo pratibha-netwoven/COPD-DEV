@@ -1,14 +1,21 @@
 <md-card class="mainContainer">
   <md-card-header class="Header">
-    Welcome back to the MS-SHARE questionnaire.
+    Follow Up Patient Questionnaire for   {{name}}
   </md-card-header>
   <md-card-content>
-    <p> [Patient Name], </p>
-    <p>Please complete the following questions before your next appointment on [appt date]. All of the information will be sent
-      to me so I can review it before we meet. Your answers are confidential and will only be shared with Sutter Health.
-      You can stop and save your answers at any time. Return and finish it when you are ready. You can skip questions that
-      you don’t wish to answer. Thank you in advance for your time. </p>
-    <p> [clinician name] </p>
+    <p>Hello {{name}},</p>
+    <p>Thank you for choosing Sutter Health Pulmonology Group!
+    </p>
+    <p>We are interested in your hearing about your health, wellbeing, and symptoms of your pulmonary condition.
+      
+      </p>
+    <p> If you can’t or don’t want to answer any question, simply tap the “Continue” button. Your provider will discuss your responses during your visit with us today.
+    </p>
+      <p>Please let your provider know if you’ve been seen by a non Sutter providers.
+      </p>
   </md-card-content>
-  <button (click)="next()">Next<i class="fa fa-arrow-right" aria-hidden="true"></i></button>
-</md-card>
+
+  <div class="btnContainer">
+  <button class="btn-left">Exit<i class="fa" aria-hidden="true"></i></button>
+  <button  class="btn-right" (click)="next()">Continue<i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+  <div>

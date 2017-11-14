@@ -3,23 +3,44 @@
     New Patient Questionnaire for   {{name}}
   </md-card-header>
   <md-card-content>
-    <p>Hello {{name}},</p>
-    <p>Thank you for choosing Sutter Health Pulmonology Group!
-    </p>
-    <p>We are interested in your hearing about your health, wellbeing, and symptoms of your pulmonary condition.
-      
-      </p>
-    <p> If you can’t or don’t want to answer any question, simply tap the “Continue” button. Your provider will discuss your responses during your visit with us today.
-    </p>
-      <p>Please let your provider know if you’ve been seen by a non Sutter providers.
-      </p>
+    <table>
+      <tr>
+        <td>
+            <p>Hello {{name}},</p>
+            <p>Thank you for choosing Sutter Health Pulmonology Group!
+            </p>
+            <p>We are interested in your hearing about your health, wellbeing, and symptoms of your pulmonary condition.
+              
+              </p>
+            <p> If you can’t or don’t want to answer any question, simply tap the “Continue” button. Your provider will discuss your responses during your visit with us today.
+            </p>
+              <p>Please let your provider know if you’ve been seen by a non Sutter providers.
+              </p>
+
+              <div>
+                  <button md-raised-button color = "primary"  >Decline Questionnaire<i class="fa" aria-hidden="true"></i></button>
+                  <button md-raised-button color = "primary" >Unsubscribe from Emails<i class="fa" aria-hidden="true"></i></button>
+                </div>
+        </td>
+        <td>
+            <img height="50%" width="50%" src="../../images/Pulomonology.jpg" />
+        </td>
+      </tr>
+    </table>
+   
   </md-card-content>
-  <div>
-    <button >Decline Questionnaire<i class="fa" aria-hidden="true"></i></button>
-    <button >Unsubscribe from Emails<i class="fa" aria-hidden="true"></i></button>
-  </div>
+  <!-- <md-card-content align="right">
+    <img md-card-image src="../../images/Pulomonology.jpg" alt="Photo of a Shiba Inu">
+  </md-card-content>
+   -->
+   
+    <!-- <div>
+      <img src="../../images/Pulomonology.jpg" />
+    </div> -->
+</md-card>
+ 
 
   <div class="btnContainer">
-  <button class="btn-left">Exit<i class="fa" aria-hidden="true"></i></button>
-  <button  class="btn-right" (click)="next()">Continue<i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+  <button md-raised-button color = "primary"  class="btn-left">Exit<i class="fa" aria-hidden="true"></i></button>
+  <button md-raised-button color = "primary"   class="btn-right" (click)="next()">Continue<i class="fa fa-arrow-right" aria-hidden="true"></i></button>
   <div>

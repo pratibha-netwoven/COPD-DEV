@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
-import {navMap} from '../app.config';
+import {navMap,welcomeMap} from '../app.config';
 
 
 @Component({
@@ -9,16 +9,17 @@ import {navMap} from '../app.config';
   styleUrls: ['./welcomec.component.css']
 })
 export class WelcomecComponent implements OnInit {
-
-constructor(private router:Router) {
-
+  name ='Patient1';
+  drName= 'Scott';
+   constructor(private router:Router) {
+ 
+    }
+ 
+   ngOnInit() {
    }
-
-  ngOnInit() {
-  }
-
-  next(){
-    this.router.navigate(['generic1','q1a']);
-  }
-
-}
+ 
+   next(){
+    // this.router.navigate(['generic1','q1']);
+    this.router.navigate([welcomeMap['one']]);
+   }
+ }
