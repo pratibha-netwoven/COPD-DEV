@@ -4,6 +4,7 @@ import { navMap,Screen } from '../app.config';
 import * as _ from "lodash";
 import { MsShareService } from '../ms-share.service';
 import { ISubscription } from 'rxjs/Subscription';
+import { FormControl } from '@angular/forms';
 
 @Component({ selector: 'app-generic1', templateUrl: './generic1.component.html', styleUrls: ['./generic1.component.css'] })
 
@@ -13,11 +14,12 @@ export class Generic1Component implements OnInit,OnDestroy {
   pageObject: any;
   selectedOption: any;
 
+  monthyeararray:string[]=[];
+  yeararray:string[]=[];
 
   constructor(private router: Router, 
               private activatedRoute: ActivatedRoute, 
               private msShareService:MsShareService) {
-    debugger;
     this.tweakNavMap();
     activatedRoute
       .params
@@ -27,7 +29,15 @@ export class Generic1Component implements OnInit,OnDestroy {
         this.pageObject.isMultiOptions && this.prepareMultiOptions();
         this.showPage();
       });
+
+    this.fillDateSelectDropDown();
+      
   }
+ 
+  // we can call this function on html as well to set selected value in dropdwon
+  // getselectedvalue(){
+  //   return "steak-0";
+  // }
   tweakNavMap() {
    
     _
@@ -46,6 +56,44 @@ export class Generic1Component implements OnInit,OnDestroy {
           q.type = 'table'
         }
       });
+
+      _.keys(navMap)
+      .forEach((x)=>{
+        
+        let q = navMap[x];
+        if(q.section)
+        {
+          if(q.sub)
+          {
+            q.sub.forEach(element => {
+              if(element.dateselect)
+              {
+                debugger;
+                element.options.forEach(op => {
+                  console.log(op.text);
+                  if(op.dateval == "")
+                  {
+                    let currMonth =  new Date().getMonth() == 12?1:new Date().getMonth()+1;
+                    let currMonthstr =currMonth.toString();
+                    let currYear=new Date().getFullYear().toString();
+
+                    if(op.monthandyear == true)
+                    op.dateval = currMonth+"/"+currYear;
+                    else if (op.yearonly == true)
+                    {
+                      op.dateval = currYear;
+                    }
+                  }
+                });
+              }
+            });
+         
+            
+          }
+         
+        }
+      })
+   
   }
   showPage() {
     let options = navMap[this.pageName].options;
@@ -66,10 +114,12 @@ export class Generic1Component implements OnInit,OnDestroy {
   }
 isradiotype(item)
 {
-  if(item.scorecontrol != true && item.scorepluscontrol != true)
+  if(item.scorecontrol != true && item.scorepluscontrol != true && item.dateselect != true)
     return true;
 }
   ngOnInit() {
+   
+
     debugger;
     alert('newscore');
     this.newscoresubscription = this.msShareService.filterOn("newscore").subscribe(
@@ -136,7 +186,7 @@ isradiotype(item)
    }
   change(event) {
     debugger;
-   
+   alert('change');
 
 
     let options: any[] = this.pageObject.options;
@@ -212,7 +262,22 @@ isradiotype(item)
   }
 
   ngOnDestroy(){
-    alert('ngOnDestroy generic');
     this.newscoresubscription.unsubscribe();
+  }
+
+  fillDateSelectDropDown(){
+    let currDate = new Date();
+    let currMonth =  currDate.getMonth() == 12?1:currDate.getMonth()+1;
+    let startmonth = 1;
+    let currYear =  currDate.getFullYear();
+    let startyear = currYear-100;
+    for (var year = startyear; year <= currYear; year++) {
+      for (var month = 1; month <= 12; month++) {
+        if(year == currYear && month>currMonth)
+         continue;
+        this.monthyeararray.push(month.toString()+"/"+year.toString());
+      }
+      this.yeararray.push(year.toString());
+    }
   }
 }

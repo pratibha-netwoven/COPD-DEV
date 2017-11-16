@@ -1,13 +1,15 @@
 import {BrowserModule} from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {HttpModule} from '@angular/http';
 import {MsShareService} from './ms-share.service';
 import {AppComponent} from './app.component';
 import {ROUTES} from './app.routes';
-import { FormsModule } from '@angular/forms';
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import {DateFormat} from './date-format';
+
 import {
   // MdButtonModule,
   
@@ -18,7 +20,9 @@ import {
   MdGridListModule,MatCardModule,
   MdDatepickerModule,
   MdNativeDateModule,
-  DateAdapter
+  DateAdapter,
+  MdSelectModule,
+  MdFormFieldModule
 } from '@angular/material';
 import {AngularMaterialModule} from './angular-material/angular-material.module';
 import { WelcomeaComponent } from './welcomea/welcomea.component';
@@ -41,7 +45,8 @@ import { ScorebuttonsComponent } from './scorebuttons/scorebuttons.component';
     ScorebuttonsComponent
   ],
   imports: [
-    BrowserModule, RouterModule.forRoot(ROUTES, {useHash: true}),HttpModule,FormsModule,
+    BrowserModule, RouterModule.forRoot(ROUTES, {useHash: true}),HttpModule,
+    FormsModule,ReactiveFormsModule,BrowserAnimationsModule,
     // MdButtonModule,
     MdDatepickerModule,
     MdGridListModule,
@@ -51,8 +56,11 @@ import { ScorebuttonsComponent } from './scorebuttons/scorebuttons.component';
     MdListModule,
     AngularMaterialModule,
     MatCardModule,
-    MdNativeDateModule
-   
+    MdNativeDateModule,
+    MdSelectModule,
+    MdFormFieldModule,
+    
+    
   ],
   providers: [MsShareService,MdNativeDateModule,DatePipe,{provide:DateAdapter,useClass:DateFormat}],
   bootstrap: [AppComponent]

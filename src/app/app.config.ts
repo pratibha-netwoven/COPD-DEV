@@ -28,7 +28,7 @@ export const welcomeMap = {
 
 // ];
 
-export const PatientType:string ="FP";
+export const PatientType:any[] =[];
 
 export const transitArray:any[] = [
    
@@ -947,13 +947,18 @@ q9: {
     {
         text: `Please select the date or select number of years you have quit using tobacco products? (Skip question if you have not quit using tobacco products)`,
         qno:'Q32',
+        dateselect:true,
         options: [
             {
                 text: `Month and year selector`,
+                dateval:"",
+                monthandyear:true,
                 checked: false
             }, 
             {
                 text: `Year selector`,
+                dateval:"",
+                yearonly:true,
                 checked: false
             }
         ]
@@ -1145,7 +1150,6 @@ q12:{
 },
 q13:{
     descr1:`Medications and Durable Medical Equipment`,  
-    Audience:'NP,FP',       
     text: `Difficulty with Medications. `,
     qno:'Q38',
     reason:'OT',
@@ -1168,7 +1172,6 @@ q13:{
 },
 q14:{
     descr1:`Medications and Durable Medical Equipment`,  
-    Audience:'NP,FP',   
     reason:'OT',    
     text: `I am using or use when needed`,
     qno:'Q39',

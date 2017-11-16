@@ -48,7 +48,7 @@ selectedscore:number;
               // );
 
 
-    this.selectedscore = this.options.find(x=>x.checked) == undefined?0:this.options.find(x=>x.checked).score;
+    this.selectedscore = this.options.find(x=>x.checked) == undefined?-1:this.options.find(x=>x.checked).score;
         
   }
 

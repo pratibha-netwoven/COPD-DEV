@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { navMap, welcomeMap,transitArray,ReasonsForVisit } from '../app.config';
+import { navMap, welcomeMap,transitArray,ReasonsForVisit,PatientType } from '../app.config';
 import * as _ from "lodash";
 import { MsShareService } from '../ms-share.service';
 
@@ -58,6 +58,7 @@ export class WelcomebComponent implements OnInit {
 
   next() {
     debugger;
+    
     this.reasoncodes =[];
    
     if(transitArray != undefined &&  transitArray.length > 0)
@@ -93,7 +94,17 @@ export class WelcomebComponent implements OnInit {
           let q = navMap[key];
           if(q.reason === element)
           {
-            transitArray.push(key);  // pushing all the questions for navigation
+            if(PatientType[0] == "FP" || PatientType[0] == "none")
+            {
+              if(!q.Audience)
+              {
+                transitArray.push(key);  // pushing all the questions for navigation
+              }
+            }
+            else{ //for New Patient some extra questions
+              transitArray.push(key);  // pushing all the questions for navigation
+            }
+           
           }
         });
       });

@@ -5,7 +5,7 @@ import 'rxjs/add/operator/map';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/filter';
 import {ActivatedRoute, Router} from '@angular/router';
-import {welcomeMap, navMap} from './app.config';
+import {welcomeMap, navMap,PatientType} from './app.config';
 import * as moment from 'moment';
 
 @Injectable()
@@ -45,6 +45,7 @@ export class MsShareService {
 
     this.set('queryParams', urlObject);
     let welcome = this.get('queryParams')['type'] || 'none';
+    PatientType.push(welcome);
     router.navigate([welcomeMap[welcome]]);
   }
 

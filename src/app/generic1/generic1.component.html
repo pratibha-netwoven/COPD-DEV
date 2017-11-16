@@ -64,7 +64,7 @@
           [checked]="option.checked">{{option.text}}</md-radio-button>
           </ng-container>
       <!-- </div> -->
-    </ng-container>
+     </ng-container>
     <ng-container *ngIf="pageObject.sub[g].scorecontrol == true">
         <!-- <div *ngFor="let option of pageObject.sub[g].options">
             <label>Name:</label>
@@ -85,6 +85,21 @@
                           [subqno]="pageObject.sub[g].qno"
                           [options]="pageObject.sub[g].options"
                           [addplus]="true"></app-scorebuttons>
+    </ng-container>
+    <ng-container *ngIf="pageObject.sub[g].dateselect == true">
+        <ng-container *ngFor="let option of pageObject.sub[g].options;let o=index">
+            <ng-container *ngIf="option.monthandyear == true">
+        <md-select  placeholder="MM/YYYY" [(value)]="option.dateval" >
+          <md-option  *ngFor="let monthyear of monthyeararray" 
+                        [value]="monthyear"> {{ monthyear }}</md-option>
+        </md-select>
+      </ng-container>
+      <ng-container *ngIf="option.yearonly == true">
+          <md-select  placeholder="YYYY" [(value)]="option.dateval">
+            <md-option *ngFor="let year of yeararray" [value]="year"> {{ year }}</md-option>
+          </md-select>
+        </ng-container>
+      </ng-container>
     </ng-container>
   
     </div>
