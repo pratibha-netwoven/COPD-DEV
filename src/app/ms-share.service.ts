@@ -6,6 +6,7 @@ import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/filter';
 import {ActivatedRoute, Router} from '@angular/router';
 import {welcomeMap, navMap} from './app.config';
+import * as moment from 'moment';
 
 @Injectable()
 export class MsShareService {
@@ -20,8 +21,13 @@ export class MsShareService {
     idNotMappedToUrl: 'Message id is not mapped to http url in config.ts file at application root',
     httpGetUnknownError: 'Unknown error encountered while making http request'
   };
-
+  momentFunc: any;
   constructor(private http : Http, private activatedRoute : ActivatedRoute, private router : Router) {
+
+    this.momentFunc = (moment as any).default ? (moment as any).default : moment;
+    this.momentFunc.locale('en');
+
+
     this.subject = new Subject();
   
     this.set('navMap', navMap);
@@ -42,6 +48,22 @@ export class MsShareService {
     router.navigate([welcomeMap[welcome]]);
   }
 
+  buildLocaleProvider(formatString:string) {
+    alert('pk');
+    return {
+      formatDate: (date:any) => {
+        alert('pk1');
+        if (date) return this.momentFunc(date).format(formatString);
+        else return null;
+      },
+      parseDate: (dateString:any)=> {
+        if (dateString) {
+          var m = this.momentFunc(dateString, formatString, true);
+          return m.isValid() ? m.toDate() : new Date(NaN);
+        } else return null;
+      }
+    };
+  }
 
   get(id) {
     return (this.global[id]);

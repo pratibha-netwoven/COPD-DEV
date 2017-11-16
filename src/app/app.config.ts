@@ -24,9 +24,11 @@ export const welcomeMap = {
    {reason:"Other", code:"OT",checked:false},
   ];
 
-export const subtransitArray:any[]=[
+// export const subtransitArray:any[]=[
 
-];
+// ];
+
+export const PatientType:string ="FP";
 
 export const transitArray:any[] = [
    
@@ -506,29 +508,37 @@ export const navMap = {
          {
             text: `How many exacerbations have you had over the last 12 months?`,
             qno:'Q17',
+            scorepluscontrol:true,
             options: [
                 {
                     text: `0`,
+                    score: 0,
                     checked: false
                 }, 
                 {
                     text: `1`,
+                    score: 1,
                     checked: false
                 }, {
                     text: `2`,
+                    score: 2,
                     checked: false
                 }, {
                     text: `3`,
+                    score: 3,
                     checked: false
                 }, {
                     text: `4`,
+                    score: 4,
                     checked: false
                 }, {
                     text: `5`,
+                    score: 5,
                     checked: false
                 },
                 {
                     text: `+`,
+                    score: 6,
                     checked: false
                 }
             ]
@@ -536,6 +546,7 @@ export const navMap = {
         {
             text: `How many exacerbations lead you to visit the emergency or urgent care?`,
             qno:'Q18',
+            scorepluscontrol:true,
             options: [
                 {
                     text: `0`,
@@ -565,6 +576,7 @@ export const navMap = {
         },{
             text: `How many of the above exacerbations required hospital admission?`,
             qno:'Q19',
+            scorepluscontrol:true,
             options: [
                 {
                     text: `0`,
@@ -935,9 +947,6 @@ q9: {
     {
         text: `Please select the date or select number of years you have quit using tobacco products? (Skip question if you have not quit using tobacco products)`,
         qno:'Q32',
-        jumpTo: (patienttype) => patienttype == 'FP'
-        ? 'q13'
-        : 'q10',
         options: [
             {
                 text: `Month and year selector`,

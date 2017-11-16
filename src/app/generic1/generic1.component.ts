@@ -1,12 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { navMap,Screen } from '../app.config';
 import * as _ from "lodash";
 import { MsShareService } from '../ms-share.service';
+import { ISubscription } from 'rxjs/Subscription';
 
 @Component({ selector: 'app-generic1', templateUrl: './generic1.component.html', styleUrls: ['./generic1.component.css'] })
 
-export class Generic1Component implements OnInit {
+export class Generic1Component implements OnInit,OnDestroy {
+  newscoresubscription:ISubscription;
   pageName: string;
   pageObject: any;
   selectedOption: any;
@@ -27,7 +29,7 @@ export class Generic1Component implements OnInit {
       });
   }
   tweakNavMap() {
-    debugger;
+   
     _
       .keys(navMap)
       .forEach(function (key) {
@@ -62,11 +64,18 @@ export class Generic1Component implements OnInit {
       this.selectedOption = scale && scale.find(x => x.checked); 
     }
   }
-
+isradiotype(item)
+{
+  if(item.scorecontrol != true && item.scorepluscontrol != true)
+    return true;
+}
   ngOnInit() {
-    this.msShareService.filterOn("newscore").subscribe(
+    debugger;
+    alert('newscore');
+    this.newscoresubscription = this.msShareService.filterOn("newscore").subscribe(
       (x :any)=>{
         debugger;
+        alert(x.data.subqno);
         let sub = this.pageObject.sub.find(y=>y.qno ==x.data.subqno);
         //empty all the checked property to false.
         sub.options.forEach(element => {
@@ -152,17 +161,6 @@ export class Generic1Component implements OnInit {
      if(this.pageObject.skipwithinsection == true && event.value.jumpTo)
      {
       //  //hide and show the radiobuttons
-      //  let options = navMap[this.pageName].options;
-      //  let scale = navMap[this.pageName].scale;
-      //  let sub = this.pageObject.sub;
-      //  sub && sub.forEach(x => {
-      //  if(x.qno == event.value.jumpTo)
-      //  {
-      //    x.hide == false;
-      //    alert('got e;lement');
-      //  }
-      // });  
-
       if(event.value.hideqNo)
       {
         //TO DO: Pratibha 10Nov2017
@@ -211,5 +209,10 @@ export class Generic1Component implements OnInit {
           Screen[this.pageObject.ScreenPage].push(x.options[0]);
         }
       });
+  }
+
+  ngOnDestroy(){
+    alert('ngOnDestroy generic');
+    this.newscoresubscription.unsubscribe();
   }
 }

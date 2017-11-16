@@ -53,7 +53,7 @@
       <p  *ngIf="pageObject.sub[g].hide != true" >
         <b> {{item.text}}</b>
       </p>
-      <ng-container *ngIf="pageObject.sub[g].scorecontrol != true">
+      <ng-container *ngIf="isradiotype(pageObject.sub[g])">
       <!-- <div *ngFor="let option of pageObject.sub[g].options"> -->
           <ng-container *ngFor="let option of pageObject.sub[g].options">
         <md-radio-button  [name]='g'
@@ -77,7 +77,14 @@
                           [selectedscorestring]="getselectedscore(pageObject.sub[g])"></app-scorebuttons> -->
         <app-scorebuttons [navMapPage]="pageName" 
                           [subqno]="pageObject.sub[g].qno"
-                          [options]="pageObject.sub[g].options"></app-scorebuttons>
+                          [options]="pageObject.sub[g].options"
+                          [addplus]="false"></app-scorebuttons>
+    </ng-container>
+    <ng-container *ngIf="pageObject.sub[g].scorepluscontrol == true">
+        <app-scorebuttons [navMapPage]="pageName" 
+                          [subqno]="pageObject.sub[g].qno"
+                          [options]="pageObject.sub[g].options"
+                          [addplus]="true"></app-scorebuttons>
     </ng-container>
   
     </div>

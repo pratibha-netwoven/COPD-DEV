@@ -16,6 +16,7 @@ selectedscore:number;
  @Input() navMapPage:string;
  @Input() subqno:string;
  @Input() selectedscorestring:string;
+ @Input() addplus:boolean = false;
 //  @Input() callback: Function;
 //newscore = new Subject<number>();
 
@@ -52,6 +53,7 @@ selectedscore:number;
   }
 
   click1(){
+    debugger;
     this.selectedscore = 1;
      this.msShareService.emit("newscore",{navMapPage:this.navMapPage,subqno:this.subqno,selectedscore:1});
     
@@ -75,4 +77,15 @@ selectedscore:number;
     this.selectedscore = 5;
      this.msShareService.emit("newscore",{navMapPage:this.navMapPage,subqno:this.subqno,selectedscore:5});
    }
+   clickplus(){
+    this.selectedscore = 6;
+     this.msShareService.emit("newscore",{navMapPage:this.navMapPage,subqno:this.subqno,selectedscore:6});
+   }
+   click0(){
+    debugger;
+    this.selectedscore = 0;
+     this.msShareService.emit("newscore",{navMapPage:this.navMapPage,subqno:this.subqno,selectedscore:0});
+    
+   // this.msShareService.newscore.next(10);
+  }
 }

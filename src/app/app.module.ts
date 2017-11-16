@@ -6,6 +6,8 @@ import {MsShareService} from './ms-share.service';
 import {AppComponent} from './app.component';
 import {ROUTES} from './app.routes';
 import { FormsModule } from '@angular/forms';
+import { DatePipe } from '@angular/common';
+import {DateFormat} from './date-format';
 import {
   // MdButtonModule,
   
@@ -15,7 +17,8 @@ import {
   MdListModule,
   MdGridListModule,MatCardModule,
   MdDatepickerModule,
-  MdNativeDateModule
+  MdNativeDateModule,
+  DateAdapter
 } from '@angular/material';
 import {AngularMaterialModule} from './angular-material/angular-material.module';
 import { WelcomeaComponent } from './welcomea/welcomea.component';
@@ -51,7 +54,15 @@ import { ScorebuttonsComponent } from './scorebuttons/scorebuttons.component';
     MdNativeDateModule
    
   ],
-  providers: [MsShareService,MdNativeDateModule],
+  providers: [MsShareService,MdNativeDateModule,DatePipe,{provide:DateAdapter,useClass:DateFormat}],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule {
+  /**
+   *
+   */
+  constructor(private dateAdapter:DateAdapter<Date>) {
+    dateAdapter.setLocale('nl');
+    
+  }
+}
